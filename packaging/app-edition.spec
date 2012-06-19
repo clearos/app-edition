@@ -3,7 +3,7 @@ Name: app-edition
 Epoch: 1
 Version: 1.1.6
 Release: 1%{dist}
-Summary: FIXME
+Summary: Edition Manager
 License: Proprietary
 Group: ClearOS/Apps
 Source: %{name}-%{version}.tar.gz
@@ -12,17 +12,17 @@ Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 
 %description
-FIXME
+The Edition Manager provides a quick way to upgrade from Community to Professional on a new install.
 
 %package core
-Summary: FIXME - Core
+Summary: Edition Manager - Core
 License: Proprietary
 Group: ClearOS/Libraries
 Requires: app-base-core
 Requires: app-clearcenter-core
 
 %description core
-FIXME
+The Edition Manager provides a quick way to upgrade from Community to Professional on a new install.
 
 This package provides the core API and libraries.
 

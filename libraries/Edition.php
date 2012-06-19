@@ -4,7 +4,7 @@
  * OS Edition class.
  *
  * @category   Apps
- * @package    Upgrade
+ * @package    Edition
  * @subpackage Libraries
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
@@ -51,7 +51,7 @@ clearos_load_library('base/Yum');
  * OS Edition class.
  *
  * @category   Apps
- * @package    Upgrade
+ * @package    Edition
  * @subpackage Libraries
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
@@ -114,8 +114,8 @@ class Edition extends Engine
             $source_repo = new File($this->source_repo);
             $source_repo->copy_to(self::FILE_REPO);
         }
-                // FIXME: clean all
 
+        // FIXME: make sure clean all succeeds
         $yum = new Yum();
         $yum->clean();
     }

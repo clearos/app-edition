@@ -4,7 +4,7 @@
  * OS edition controller.
  *
  * @category   Apps
- * @package    Upgrade
+ * @package    Edition
  * @subpackage Controllers
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
@@ -20,7 +20,7 @@
  * OS edition controller.
  *
  * @category   Apps
- * @package    Upgrade
+ * @package    Edition
  * @subpackage Controllers
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
