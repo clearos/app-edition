@@ -115,8 +115,11 @@ class Edition extends Engine
             $source_repo->copy_to(self::FILE_REPO);
         }
 
-        // FIXME: make sure clean all succeeds
-        $yum = new Yum();
-        $yum->clean();
+        try {
+            $yum = new Yum();
+            $yum->clean();
+        } catch (Exception $e) {
+            // Not fatal
+        }
     }
 }
