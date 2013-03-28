@@ -1,7 +1,7 @@
 
 Name: app-edition
 Epoch: 1
-Version: 1.2.4
+Version: 1.4.30
 Release: 1%{dist}
 Summary: Edition Manager
 License: Proprietary
@@ -34,11 +34,6 @@ This package provides the core API and libraries.
 mkdir -p -m 755 %{buildroot}/usr/clearos/apps/edition
 cp -r * %{buildroot}/usr/clearos/apps/edition/
 
-
-if [ -d %{buildroot}/usr/clearos/apps/edition/libraries_zendguard ]; then
-    rm -rf %{buildroot}/usr/clearos/apps/edition/libraries
-    mv %{buildroot}/usr/clearos/apps/edition/libraries_zendguard %{buildroot}/usr/clearos/apps/edition/libraries
-fi
 
 %post
 logger -p local6.notice -t installer 'app-edition - installing'
