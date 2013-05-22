@@ -3,9 +3,9 @@
 /**
  * OS Edition class.
  *
- * @category   Apps
- * @package    Edition
- * @subpackage Libraries
+ * @category   apps
+ * @package    edition
+ * @subpackage libraries
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license
@@ -50,9 +50,9 @@ clearos_load_library('base/Yum');
 /**
  * OS Edition class.
  *
- * @category   Apps
- * @package    Edition
- * @subpackage Libraries
+ * @category   apps
+ * @package    edition
+ * @subpackage libraries
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license

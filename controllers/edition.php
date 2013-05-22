@@ -3,9 +3,9 @@
 /**
  * OS edition controller.
  *
- * @category   Apps
- * @package    Edition
- * @subpackage Controllers
+ * @category   apps
+ * @package    edition
+ * @subpackage controllers
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license
@@ -19,9 +19,9 @@
 /**
  * OS edition controller.
  *
- * @category   Apps
- * @package    Edition
- * @subpackage Controllers
+ * @category   apps
+ * @package    edition
+ * @subpackage controllers
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license

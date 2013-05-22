@@ -3,9 +3,9 @@
 /**
  * Upgrade banner view.
  *
- * @category   Apps
- * @package    Upgrade
- * @subpackage Views
+ * @category   apps
+ * @package    edition
+ * @subpackage views
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2012 ClearCenter
  * @license    http://www.clearcenter.com/Company/terms.html ClearSDN license

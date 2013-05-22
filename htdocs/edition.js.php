@@ -3,9 +3,9 @@
 /**
  * Edition javascript helper.
  *
- * @category   ClearOS
- * @package    Edition
- * @subpackage Javascript
+ * @category   apps
+ * @package    edition
+ * @subpackage javascript
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
