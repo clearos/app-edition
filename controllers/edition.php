@@ -56,21 +56,41 @@ class Edition extends ClearOS_Controller
             return;
         }
 
-        // Handle form submit
-        //-------------------
-
-        if ($this->input->post('edition')) {
-            if ($this->input->post('edition') === 'professional')
-                $this->edition->set('professional');
-            else
-                $this->edition->set('community');
-
-            redirect($this->session->userdata['wizard_redirect']);
-        }
-
         // Load views
         //-----------
 
         $this->page->view_form('edition/edition', $data, lang('edition_select_edition'));
     }
+
+    /**
+     * Ajax Edition Update
+     *
+     * @return JSON
+     */
+
+    function update_edition()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Content-type: application/json');
+
+        $this->load->library('edition/Edition');
+
+        try {
+            // Handle update
+            //--------------
+            if ($this->input->post('edition')) {
+                if ($this->input->post('edition') === 'professional')
+                    $this->edition->set('professional');
+                else
+                    $this->edition->set('community');
+            }
+            echo json_encode(Array('code' => 0));
+
+        } catch (Exception $e) {
+            echo json_encode(Array('code' => clearos_exception_code($e), 'errmsg' => clearos_exception_message($e)));
+        }
+    }
+
 }

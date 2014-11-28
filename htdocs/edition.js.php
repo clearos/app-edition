@@ -1,7 +1,6 @@
 <?php
 
-/**
- * Edition javascript helper.
+/** * Edition javascript helper.
  *
  * @category   apps
  * @package    edition
@@ -45,17 +44,48 @@ header('Content-Type:application/x-javascript');
 
 $(document).ready(function() {
 
-    // Wizard next button handling
-    //----------------------------
+    var edition = 'community';
 
-    $("#wizard_nav_next").click(function(){
-        if ($('#professional_already_installed').length != 0)
-            window.location = '/app/base/wizard/next_step';
-        else if ($('#getting_started').length != 0)
-            window.location = '/app/base/wizard/next_step';
-        else
-            $('form#edition_form').submit();
+    $("#select-professional").on('click', function(e) {
+        e.preventDefault();
+        $("#footer-pro div.edition-label").show();
+        $("#select-professional").hide();
+        $("#select-community").show();
+        $("#footer-community div.edition-label").hide();
+        edition = 'professional';
     });
+    $("#select-community").on('click', function(e) {
+        e.preventDefault();
+        $("#footer-pro div.edition-label").hide();
+        $("#select-professional").show();
+        $("#select-community").hide();
+        $("#footer-community div.edition-label").show();
+        edition = 'community';
+    });
+
+    // Wizard previous/next button handling
+    //-------------------------------------
+
+    $('#wizard_nav_next').on('click', function(e) {
+        // Hope there are no fault...ajax is waiting around ;-)
+        update_edition(edition);
+    });
+
 });
+
+/* Update edition */
+
+function update_edition(edition) {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/app/edition/update_edition',
+        data: 'ci_csrf_token=' + $.cookie('ci_csrf_token') + '&edition=' + edition,
+        success: function(data) {
+        },
+        error: function(xhr, text, err) {
+        }
+    });
+}
 
 // vim: ts=4 syntax=javascript
