@@ -36,20 +36,31 @@ $bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/c
 require_once $bootstrap . '/bootstrap.php';
 
 ///////////////////////////////////////////////////////////////////////////////
+// T R A N S L A T I O N S
+///////////////////////////////////////////////////////////////////////////////
+
+clearos_load_language('edition');
+
+///////////////////////////////////////////////////////////////////////////////
 // J A V A S C R I P T
 ///////////////////////////////////////////////////////////////////////////////
 
 header('Content-Type:application/x-javascript');
 ?>
 
+var lang_upgrade = '<?php echo lang('edition_upgrade'); ?>';
+var lang_downgrade = '<?php echo lang('edition_downgrade'); ?>';
+var edition = 'community';
+
 $(document).ready(function() {
 
-    var edition = 'community';
 
     $("#select-professional").on('click', function(e) {
         e.preventDefault();
         $("#footer-pro div.edition-label").show();
         $("#select-professional").hide();
+        $("#select-professional").html(lang_upgrade);
+        $("#select-community").html(lang_downgrade);
         $("#select-community").show();
         $("#footer-community div.edition-label").hide();
         edition = 'professional';
@@ -58,6 +69,8 @@ $(document).ready(function() {
         e.preventDefault();
         $("#footer-pro div.edition-label").hide();
         $("#select-professional").show();
+        $("#select-professional").html(lang_upgrade);
+        $("#select-community").html(lang_downgrade);
         $("#select-community").hide();
         $("#footer-community div.edition-label").show();
         edition = 'community';
@@ -67,7 +80,11 @@ $(document).ready(function() {
     //-------------------------------------
 
     $('#wizard_nav_next').on('click', function(e) {
-        // Hope there are no fault...ajax is waiting around ;-)
+        if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
+            e.preventDefault();
+            clearos_modal_infobox_open('wizard_next_showstopper');
+            return;
+        }
         update_edition(edition);
     });
 
