@@ -80,7 +80,9 @@ $(document).ready(function() {
     //-------------------------------------
 
     $('#wizard_nav_next').on('click', function(e) {
-        if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
+        // if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
+        // FIXME: no Professional edition yet
+        if ($("#select-community").is(':visible')) {
             e.preventDefault();
             clearos_modal_infobox_open('wizard_next_showstopper');
             return;

@@ -45,7 +45,9 @@ echo column_open(6);
 echo row_open();
 
 $community_footer = "<div class='edition-label theme-hidden'>Install Community</div>" . anchor_select('#', 'high', array('id' => 'select-community'));
-$pro_footer = "<div class='edition-label theme-hidden'>Install Professional</div>" . anchor_select('#', 'high', array('id' => 'select-professional'));
+// FIXME: re-enable, or better yet, make this a configurable option for betas
+// $pro_footer = "<div class='edition-label theme-hidden'>Install Professional</div>" . anchor_select('#', 'high', array('id' => 'select-professional'));
+$pro_footer = "Coming Soon";
 echo column_open(6);
 echo box_open('Community Edition');
 echo box_content(image('community_logo.png', array('size' => "150x150")),  array('class' => 'theme-center-text'));
