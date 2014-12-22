@@ -81,10 +81,15 @@ class Edition extends ClearOS_Controller
             // Handle update
             //--------------
             if ($this->input->post('edition')) {
-                if ($this->input->post('edition') === 'professional')
+                if ($this->input->post('edition') === 'professional') {
                     $this->edition->set('professional');
-                else
+                    // FIXME
+                    $this->session->set_userdata('os_name', 'ClearOS Professional');
+                } else {
                     $this->edition->set('community');
+                    // FIXME
+                    $this->session->set_userdata('os_name', 'ClearOS Community');
+                }
             }
             echo json_encode(Array('code' => 0));
 

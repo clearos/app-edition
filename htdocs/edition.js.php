@@ -50,7 +50,6 @@ header('Content-Type:application/x-javascript');
 
 var lang_upgrade = '<?php echo lang('edition_upgrade'); ?>';
 var lang_downgrade = '<?php echo lang('edition_downgrade'); ?>';
-var edition = 'community';
 
 $(document).ready(function() {
 
@@ -63,7 +62,7 @@ $(document).ready(function() {
         $("#select-community").html(lang_downgrade);
         $("#select-community").show();
         $("#footer-community div.edition-label").hide();
-        edition = 'professional';
+        update_edition('professional');
     });
     $("#select-community").on('click', function(e) {
         e.preventDefault();
@@ -73,21 +72,20 @@ $(document).ready(function() {
         $("#select-community").html(lang_downgrade);
         $("#select-community").hide();
         $("#footer-community div.edition-label").show();
-        edition = 'community';
+        update_edition('community');
     });
 
     // Wizard previous/next button handling
     //-------------------------------------
 
     $('#wizard_nav_next').on('click', function(e) {
-        // if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
+        if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
         // FIXME: no Professional edition yet
-        if ($("#select-community").is(':visible')) {
+        //if ($("#select-community").is(':visible')) {
             e.preventDefault();
             clearos_modal_infobox_open('wizard_next_showstopper');
             return;
         }
-        update_edition(edition);
     });
 
 });
@@ -101,8 +99,11 @@ function update_edition(edition) {
         url: '/app/edition/update_edition',
         data: 'ci_csrf_token=' + $.cookie('ci_csrf_token') + '&edition=' + edition,
         success: function(data) {
+            if (data.code != 0)
+                clearos_dialog_box('error', lang_warning, data.errmsg);
         },
         error: function(xhr, text, err) {
+            clearos_dialog_box('error', lang_warning, xhr.responseText.toString());
         }
     });
 }
