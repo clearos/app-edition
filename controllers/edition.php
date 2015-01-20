@@ -7,10 +7,19 @@
  * @package    edition
  * @subpackage controllers
  * @author     ClearCenter <developer@clearcenter.com>
- * @copyright  2012 ClearCenter
+ * @copyright  2015 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license
  * @link       http://www.clearcenter.com/support/documentation/clearos/edition/
  */
+
+///////////////////////////////////////////////////////////////////////////////
+// D E P E N D E N C I E S
+///////////////////////////////////////////////////////////////////////////////
+
+// Exceptions
+//-----------
+
+use \Exception as Exception;
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
@@ -23,7 +32,7 @@
  * @package    edition
  * @subpackage controllers
  * @author     ClearCenter <developer@clearcenter.com>
- * @copyright  2012 ClearCenter
+ * @copyright  2015 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license
  * @link       http://www.clearcenter.com/support/documentation/clearos/edition/
  */
@@ -39,18 +48,17 @@ class Edition extends ClearOS_Controller
     function index()
     {
         $this->lang->load('edition');
-        $this->load->library('base/OS');
         $this->load->library('edition/Edition');
 
         // Load view data
         //---------------
 
         try {
-            $os_name = $this->os->get_name();
-
-            // Don't show upgrade on a Professional Edition
-            if (preg_match('/ClearOS Professional/', $os_name))
-                redirect($this->session->userdata['wizard_redirect']);
+            $selected = $this->edition->get();
+            if ($selected !== FALSE)
+                $selected['css_url_full_path'] = clearos_theme_url($this->session->userdata['theme']) . '/css/' . $selected['theme'];
+            $data['selected'] = json_encode($selected);
+            $data['editions'] = $this->edition->get_editions();
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;
@@ -81,21 +89,20 @@ class Edition extends ClearOS_Controller
             // Handle update
             //--------------
             if ($this->input->post('edition')) {
-                if ($this->input->post('edition') === 'professional') {
-                    $this->edition->set('professional');
-                    // FIXME
-                    $this->session->set_userdata('os_name', 'ClearOS Professional');
-                } else {
-                    $this->edition->set('community');
-                    // FIXME
-                    $this->session->set_userdata('os_name', 'ClearOS Community');
-                }
+                $this->edition->set($this->input->post('edition'));
+                $info = $this->edition->get();
+                $this->session->set_userdata('os_name', $info['name']);
             }
-            echo json_encode(Array('code' => 0));
+            echo json_encode(
+                Array(
+                    'code' => 0,
+                    'short_name' => $info['short_name'],
+                    'css_url' => clearos_theme_url($this->session->userdata['theme']) . '/css/' . $info['theme'],
+                )
+            );
 
         } catch (Exception $e) {
             echo json_encode(Array('code' => clearos_exception_code($e), 'errmsg' => clearos_exception_message($e)));
         }
     }
-
 }

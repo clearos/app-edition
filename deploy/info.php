@@ -26,6 +26,24 @@ $app['menu_enabled'] = FALSE;
 // Packaging
 /////////////////////////////////////////////////////////////////////////////
 
+$app['core_directory_manifest'] = array(
+    '/etc/clearos/edition.d' => array()
+);
+
+$app['core_file_manifest'] = array( 
+    'business-7.0.conf' => array ( 
+        'target' => '/etc/clearos/edition.d',
+        'mode' => '0644',
+    ),
+    'community-7.0.conf' => array ( 
+        'target' => '/etc/clearos/edition.d',
+        'mode' => '0644',
+    ),
+    'home-7.0.conf' => array ( 
+        'target' => '/etc/clearos/edition.d',
+        'mode' => '0644',
+    ),
+);
 $app['core_requires'] = array(
     'app-clearcenter-core',
 );

@@ -12,7 +12,7 @@ Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 
 %description
-The Edition Manager provides a quick way to upgrade from Community to Professional on a new install.
+The Edition Manager provides a selection process to choose the right version for your environment and budget.
 
 %package core
 Summary: Edition Manager - Core
@@ -22,7 +22,7 @@ Requires: app-base-core
 Requires: app-clearcenter-core
 
 %description core
-The Edition Manager provides a quick way to upgrade from Community to Professional on a new install.
+The Edition Manager provides a selection process to choose the right version for your environment and budget.
 
 This package provides the core API and libraries.
 
@@ -34,6 +34,10 @@ This package provides the core API and libraries.
 mkdir -p -m 755 %{buildroot}/usr/clearos/apps/edition
 cp -r * %{buildroot}/usr/clearos/apps/edition/
 
+install -d -m 0755 %{buildroot}/etc/clearos/edition.d
+install -D -m 0644 packaging/business-7.0.conf %{buildroot}/etc/clearos/edition.d
+install -D -m 0644 packaging/community-7.0.conf %{buildroot}/etc/clearos/edition.d
+install -D -m 0644 packaging/home-7.0.conf %{buildroot}/etc/clearos/edition.d
 
 %post
 logger -p local6.notice -t installer 'app-edition - installing'
@@ -72,6 +76,10 @@ exit 0
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/edition/packaging
 %dir /usr/clearos/apps/edition
+%dir /etc/clearos/edition.d
 /usr/clearos/apps/edition/deploy
 /usr/clearos/apps/edition/language
 /usr/clearos/apps/edition/libraries
+/etc/clearos/edition.d
+/etc/clearos/edition.d
+/etc/clearos/edition.d

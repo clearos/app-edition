@@ -48,31 +48,51 @@ clearos_load_language('edition');
 header('Content-Type:application/x-javascript');
 ?>
 
-var lang_upgrade = '<?php echo lang('edition_upgrade'); ?>';
-var lang_downgrade = '<?php echo lang('edition_downgrade'); ?>';
-
 $(document).ready(function() {
 
+    if ($('#edition-selected').length != 0) {
+        var edition = jQuery.parseJSON($('#edition-selected').html());
+        console.log(edition);
+        $("#" + edition.dom_id).hide();
+        $("#" + edition.dom_id).data('selected', 1);
+        $("#" + edition.dom_id).prev().show();
+        $("#theme-os-css").attr("href", edition.css_url_full_path);
+        $("#theme-clearos-os-name").html(edition.short_name);
+    }
 
-    $("#select-professional").on('click', function(e) {
+    $(".edition-selector").on('click', function(e) {
         e.preventDefault();
-        $("#footer-pro div.edition-label").show();
-        $("#select-professional").hide();
-        $("#select-professional").html(lang_upgrade);
-        $("#select-community").html(lang_downgrade);
-        $("#select-community").show();
-        $("#footer-community div.edition-label").hide();
-        update_edition('professional');
+        $(".edition-selector").show();
+        $(".edition-selector").data('selected', 0);
+        $(".edition-label").hide();
+        $("#" + this.id).hide();
+        $("#" + this.id).data('selected', 1);
+        $("#" + this.id).prev().show();
+        update_edition($('#' + this.id).data('conf'));
     });
-    $("#select-community").on('click', function(e) {
-        e.preventDefault();
-        $("#footer-pro div.edition-label").hide();
-        $("#select-professional").show();
-        $("#select-professional").html(lang_upgrade);
-        $("#select-community").html(lang_downgrade);
-        $("#select-community").hide();
-        $("#footer-community div.edition-label").show();
-        update_edition('community');
+    $(".edition-info-box").on('mouseenter', function(e) {
+        $(".edition-info").hide();
+        if (this.id.match('.*community.*')) {
+            $(".edition-help-community").show();
+        } else if (this.id.match('.*business.*')) {
+            $(".edition-help-business").show();
+        } else if (this.id.match('.*home.*')) {
+            $(".edition-help-home").show();
+        }
+    });
+    $(".edition-info-box").on('mouseleave', function(e) {
+        $(".edition-info-box").each(function( index ) {
+            if ($(this).find('a').data('selected') != undefined && $(this).find('a').data('selected') == 1) {
+                $(".edition-info").hide();
+                if (this.id.match('.*community.*')) {
+                    $(".edition-help-community").show();
+                } else if (this.id.match('.*business.*')) {
+                    $(".edition-help-business").show();
+                } else if (this.id.match('.*home.*')) {
+                    $(".edition-help-home").show();
+                }
+            }
+        });
     });
 
     // Wizard previous/next button handling
@@ -80,8 +100,6 @@ $(document).ready(function() {
 
     $('#wizard_nav_next').on('click', function(e) {
         if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
-        // FIXME: no Professional edition yet
-        //if ($("#select-community").is(':visible')) {
             e.preventDefault();
             clearos_modal_infobox_open('wizard_next_showstopper');
             return;
@@ -97,10 +115,12 @@ function update_edition(edition) {
         type: 'POST',
         dataType: 'json',
         url: '/app/edition/update_edition',
-        data: 'ci_csrf_token=' + $.cookie('ci_csrf_token') + '&edition=' + edition,
+        data: 'ci_csrf_token=' + $.cookie('ci_csrf_token') + '&edition=' + encodeURIComponent(edition),
         success: function(data) {
             if (data.code != 0)
                 clearos_dialog_box('error', lang_warning, data.errmsg);
+            $("#theme-os-css").attr("href", data.css_url);
+            $("#theme-clearos-os-name").html(data.short_name);
         },
         error: function(xhr, text, err) {
             clearos_dialog_box('error', lang_warning, xhr.responseText.toString());
