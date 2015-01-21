@@ -99,7 +99,12 @@ $(document).ready(function() {
     //-------------------------------------
 
     $('#wizard_nav_next').on('click', function(e) {
-        if ($("#select-community").is(':visible') && $("#select-professional").is(':visible')) {
+        var select_made = false;
+        $(".edition-info-box").each(function( index ) {
+            if ($(this).find('a').data('selected') != undefined && $(this).find('a').data('selected') == 1)
+                select_made = true;
+        });
+        if (!select_made) {
             e.preventDefault();
             clearos_modal_infobox_open('wizard_next_showstopper');
             return;
