@@ -58,6 +58,7 @@ $(document).ready(function() {
         $("#" + edition.dom_id).prev().show();
         $("#theme-os-css").attr("href", edition.css_url_full_path);
         $("#theme-clearos-os-name").html(edition.short_name);
+        $(".edition-help-" + edition.class).show();
     }
 
     $(".edition-selector").on('click', function(e) {

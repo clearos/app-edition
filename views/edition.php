@@ -27,7 +27,7 @@ echo "<h2 style='font-size: 1.8em;'>" . lang("edition_thank_you") . "</h2>";
 echo row_open();
 
 foreach ($editions as $id => $edition) {
-    $summaries .= "<p class='edition-info edition-help-" . $edition['class'] . "'>" . lang('edition_summary_' . $edition['class']) . "</p>\n";
+    $summaries .= "<p class='edition-info edition-help-" . $edition['class'] . " theme-hidden'>" . lang('edition_summary_' . $edition['class']) . "</p>\n";
     echo column_open(4);
     echo box_open($edition['short_name'] . ' ' . lang('edition_edition'), array('id' => 'box-' . $edition['dom_id'], 'class' => 'edition-info-box'));
     echo box_content(
