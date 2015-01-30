@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     if ($('#edition-selected').length != 0) {
         var edition = jQuery.parseJSON($('#edition-selected').html());
-        console.log(edition);
+        // console.log(edition);
         $("#" + edition.dom_id).hide();
         $("#" + edition.dom_id).data('selected', 1);
         $("#" + edition.dom_id).prev().show();

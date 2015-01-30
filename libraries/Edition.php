@@ -39,10 +39,12 @@ clearos_load_language('edition');
 //--------
 
 use \clearos\apps\base\Configuration_File as Configuration_File;
+use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
 use \clearos\apps\base\Product as Product;
 
 clearos_load_library('base/Configuration_File');
+clearos_load_library('base/File');
 clearos_load_library('base/Folder');
 clearos_load_library('base/Product');
 
@@ -76,10 +78,6 @@ class Edition extends Product
     const PATH_CONFIGLETS = '/etc/clearos/edition.d';
 
     ///////////////////////////////////////////////////////////////////////////////
-    // V A R I A B L E S
-    ///////////////////////////////////////////////////////////////////////////////
-
-    ///////////////////////////////////////////////////////////////////////////////
     // M E T H O D S
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -107,10 +105,11 @@ class Edition extends Product
 
         try {
             $configlets = $this->_get_configlets();
-            foreach ($configlets as $edition) {
+            foreach ($configlets as $id => $edition) {
                 if ($edition['configlet_file'] == $conf) {
-                    $this->set_name($edition['name']);
-                    $this->set_software_id($edition['software_id']);
+                    // Set product file
+                    $file = new File(self::PATH_CONFIGLETS . '/' . $edition['configlet_file']);
+                    $file->copy_to(self::FILE_CONFIG);
                     break;
                 }
             }
