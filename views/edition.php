@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Upgrade banner view.
+ * Select Edition view.
  *
  * @category   apps
  * @package    edition
@@ -32,8 +32,8 @@ foreach ($editions as $id => $edition) {
     echo box_open($edition['short_name'] . ' ' . lang('edition_edition'), array('id' => 'box-' . $edition['dom_id'], 'class' => 'edition-info-box'));
     echo box_content(
         row_open() .
-        column_open(3) .
-        image($edition['logo'], NULL,  array('class' => 'theme-center-text')) .
+        column_open(3, NULL, NULL, array('class' => 'theme-center-text')) .
+        image($edition['logo']) .
         column_close() .
         column_open(9) .
         lang('edition_exec_summary_' . $edition['class']) .

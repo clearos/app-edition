@@ -2,6 +2,7 @@
 
 $lang['edition_app_description'] = 'The Edition Manager provides a selection process to choose the right version for your environment and budget.';
 $lang['edition_app_name'] = 'Edition Manager';
+$lang['edition_currently_running'] = 'Current software version';
 $lang['edition_downgrade'] = 'Downgrade';
 $lang['edition_edition'] = 'Edition';
 $lang['edition_exec_summary_business'] = 'Professionally supported IT platform for businesses who want to minimize the risk of downtime.';

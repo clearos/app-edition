@@ -42,13 +42,18 @@ class Edition extends ClearOS_Controller
     /**
      * Edition default controller.
      *
-     * @return string
+     * @return view
      */
 
     function index()
     {
         $this->lang->load('edition');
         $this->load->library('edition/Edition');
+
+        if (!$this->session->userdata('wizard')) {
+            redirect('/edition/display');
+            return;
+        }
 
         // Load view data
         //---------------
@@ -68,6 +73,39 @@ class Edition extends ClearOS_Controller
         //-----------
 
         $this->page->view_form('edition/edition', $data, lang('edition_select_edition'));
+    }
+
+    /**
+     * Edition display controller.
+     *
+     * @return view
+     */
+
+    function display()
+    {
+        $this->lang->load('edition');
+        $this->load->library('edition/Edition');
+
+        if ($this->session->userdata('wizard')) {
+            redirect('/edition');
+            return;
+        }
+
+        // Load view data
+        //---------------
+
+        try {
+            $data['selected'] = $this->edition->get();
+            $data['editions'] = $this->edition->get_editions();
+        } catch (Exception $e) {
+            $this->page->view_exception($e);
+            return;
+        }
+
+        // Load views
+        //-----------
+
+        $this->page->view_form('edition/selected', $data, lang('edition_currently_running'));
     }
 
     /**
