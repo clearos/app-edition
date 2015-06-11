@@ -35,9 +35,9 @@ mkdir -p -m 755 %{buildroot}/usr/clearos/apps/edition
 cp -r * %{buildroot}/usr/clearos/apps/edition/
 
 install -d -m 0755 %{buildroot}/etc/clearos/edition.d
-install -D -m 0644 packaging/business-7.0.conf %{buildroot}/etc/clearos/edition.d
-install -D -m 0644 packaging/community-7.0.conf %{buildroot}/etc/clearos/edition.d
-install -D -m 0644 packaging/home-7.0.conf %{buildroot}/etc/clearos/edition.d
+install -D -m 0644 packaging/business-7.1.conf %{buildroot}/etc/clearos/edition.d
+install -D -m 0644 packaging/community-7.1.conf %{buildroot}/etc/clearos/edition.d
+install -D -m 0644 packaging/home-7.1.conf %{buildroot}/etc/clearos/edition.d
 
 %post
 logger -p local6.notice -t installer 'app-edition - installing'

@@ -31,15 +31,15 @@ $app['core_directory_manifest'] = array(
 );
 
 $app['core_file_manifest'] = array( 
-    'business-7.0.conf' => array ( 
+    'business-7.1.conf' => array ( 
         'target' => '/etc/clearos/edition.d',
         'mode' => '0644',
     ),
-    'community-7.0.conf' => array ( 
+    'community-7.1.conf' => array ( 
         'target' => '/etc/clearos/edition.d',
         'mode' => '0644',
     ),
-    'home-7.0.conf' => array ( 
+    'home-7.1.conf' => array ( 
         'target' => '/etc/clearos/edition.d',
         'mode' => '0644',
     ),
