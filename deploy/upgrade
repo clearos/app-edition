@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -e /etc/clearos/edition/business-7.0.conf ]; then
+    logger -p local6.notice -t installer "app-edition-core - removing Business 7.0 definition"
+    rm -rf /etc/clearos/edition/business-7.0.conf
+fi
+if [ -e /etc/clearos/edition/home-7.0.conf ]; then
+    logger -p local6.notice -t installer "app-edition-core - removing Home 7.0 definition"
+    rm -rf /etc/clearos/edition/home-7.0.conf
+fi
+if [ -e /etc/clearos/edition/community-7.0.conf ]; then
+    logger -p local6.notice -t installer "app-edition-core - removing Community 7.0 definition"
+    rm -rf /etc/clearos/edition/community-7.0.conf
+fi
+
+# vi: expandtab shiftwidth=4 softtabstop=4 tabstop=4
