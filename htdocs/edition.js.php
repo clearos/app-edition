@@ -112,6 +112,8 @@ $(document).ready(function() {
         }
     });
 
+    if ($(location).attr('href').match('.*edition\/updating.*') != null)
+        wizard_update_is_updating();
 });
 
 /* Update edition */
@@ -134,4 +136,22 @@ function update_edition(edition) {
     });
 }
 
+function wizard_update_is_updating() {
+    $.ajax({
+        url: '/app/base/wizard/is_wizard_upgrade_running',
+        method: 'GET',
+        dataType: 'json',
+        success : function(json) {
+            if (json.state != 1) {
+                window.location = '/app/edition';
+                return;
+            }
+            window.setTimeout(wizard_update_is_updating, 1000);
+        },
+        error: function(xhr, text, err) {
+            window.location = '/app/edition/abort_update';
+            return;
+        }
+    });
+}
 // vim: ts=4 syntax=javascript

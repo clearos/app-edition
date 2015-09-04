@@ -1,5 +1,6 @@
 <?php
 
+$lang['edition_abort_update'] = 'Abort Update';
 $lang['edition_app_description'] = 'The Edition Manager provides a selection process to choose the right version for your environment and budget.';
 $lang['edition_app_name'] = 'Edition Manager';
 $lang['edition_currently_running'] = 'Current software version';
@@ -17,3 +18,4 @@ $lang['edition_summary_community'] = 'ClearOS Community Edition is supported by 
 $lang['edition_summary_home'] = 'ClearOS Home Edition is ideal for home environments where individuals want more features and integrated cloud services than those that are typically provided by ISP-issued gateways or home-targeted network devices.';
 $lang['edition_thank_you'] = 'Thank You for Choosing ClearOS';
 $lang['edition_upgrade'] = 'Upgrade';
+$lang['edition_updating'] = 'Software Update in Progress';

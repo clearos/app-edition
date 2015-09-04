@@ -16,6 +16,8 @@
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
+use \clearos\apps\base\Install_Wizard as Install_Wizard;
+
 // Exceptions
 //-----------
 
@@ -49,12 +51,19 @@ class Edition extends ClearOS_Controller
     {
         $this->lang->load('edition');
         $this->load->library('edition/Edition');
+        $this->load->library('base/Install_Wizard');
+        $this->load->library('base/Script', Install_Wizard::SCRIPT_UPGRADE);
 
         if (!$this->session->userdata('wizard')) {
             redirect('/edition/display');
             return;
         }
 
+        if ($this->script->is_running()) {
+            // If wizard update is running still, just put on hold
+            redirect('/edition/updating');
+            return;
+        }
         // Load view data
         //---------------
 
@@ -142,5 +151,35 @@ class Edition extends ClearOS_Controller
         } catch (Exception $e) {
             echo json_encode(Array('code' => clearos_exception_code($e), 'errmsg' => clearos_exception_message($e)));
         }
+    }
+
+    /**
+     * Edition updating controller
+     *
+     * @return view
+     */
+
+    function updating()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        clearos_load_language('edition');
+
+        $this->page->view_form('edition/updating_library', $data, lang('edition_updating'));
+    }
+
+    /**
+     * Abort software update
+     *
+     * @return view
+     */
+
+    function abort_update()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $this->load->library('base/Install_Wizard');
+        $this->install_wizard->abort_update_script();
+        redirect('/edition');
     }
 }
