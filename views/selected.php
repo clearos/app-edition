@@ -33,5 +33,5 @@ echo box_content(
     column_close() .
     row_close()
 );
-echo box_footer('footer-selected', lang('edition_currently_running') . ': ' . $selected['version'], array('class' => 'edition-option-footer'));
+echo box_footer('footer-selected', lang('edition_currently_running') . ': ' . $selected['name'], array('class' => 'edition-option-footer'));
 echo box_close();
