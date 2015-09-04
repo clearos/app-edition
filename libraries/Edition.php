@@ -42,11 +42,13 @@ use \clearos\apps\base\Configuration_File as Configuration_File;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
 use \clearos\apps\base\Product as Product;
+use \clearos\apps\registration\Registration as Registration;
 
 clearos_load_library('base/Configuration_File');
 clearos_load_library('base/File');
 clearos_load_library('base/Folder');
 clearos_load_library('base/Product');
+clearos_load_library('registration/Registration');
 
 // Exceptions
 //-----------
@@ -113,8 +115,12 @@ class Edition extends Product
                     break;
                 }
             }
+            // If system is registered, change up hostkey to reset registration process.
+            $registration = new Registration();
+            if ($registration->get_local_registration_status())
+                $registration->reset();
         } catch (Exception $e) {
-            // Not fatal
+            throw new Engine_Exception(clearos_exception_message($e), CLEAROS_ERROR);
         }
     }
 
