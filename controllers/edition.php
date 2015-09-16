@@ -54,23 +54,30 @@ class Edition extends ClearOS_Controller
         $this->load->library('base/Install_Wizard');
         $this->load->library('base/Script', Install_Wizard::SCRIPT_UPGRADE);
 
-        if (!$this->session->userdata('wizard')) {
-            redirect('/edition/display');
-            return;
-        }
-
         if ($this->script->is_running()) {
             // If wizard update is running still, just put on hold
             redirect('/edition/updating');
             return;
         }
+
         // Load view data
         //---------------
 
         try {
             $selected = $this->edition->get();
+
+            if (!$this->session->userdata('wizard') && $selected) {
+                redirect('/edition/display');
+                return;
+            }
+
+            $options = array();
+
             if ($selected !== FALSE)
                 $selected['css_url_full_path'] = clearos_theme_url($this->session->userdata['theme']) . '/css/' . $selected['theme'];
+            else
+                $options['type'] = MY_Page::TYPE_SPOTLIGHT;
+
             $data['selected'] = json_encode($selected);
             $data['editions'] = $this->edition->get_editions();
         } catch (Exception $e) {
@@ -81,7 +88,7 @@ class Edition extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('edition/edition', $data, lang('edition_select_edition'));
+        $this->page->view_form('edition/edition', $data, lang('edition_select_edition'), $options);
     }
 
     /**
@@ -100,11 +107,18 @@ class Edition extends ClearOS_Controller
             return;
         }
 
+        $selected = $this->edition->get();
+
+        if (!$selected) {
+            redirect('/edition');
+            return;
+        }
+
         // Load view data
         //---------------
 
         try {
-            $data['selected'] = $this->edition->get();
+            $data['selected'] = $selected;
             $data['editions'] = $this->edition->get_editions();
         } catch (Exception $e) {
             $this->page->view_exception($e);

@@ -41,7 +41,7 @@ foreach ($editions as $id => $edition) {
         row_close()
     );
     if ($edition['available'])
-        $footer = "<div class='edition-label theme-hidden'>" . lang('base_install') . ' ' . $edition['short_name'] . "</div>" . 
+        $footer = "<div class='edition-label theme-hidden'>" . lang('base_select') . ' ' . $edition['short_name'] . "</div>" . 
             anchor_select('#', 'high', array('id' => $edition['dom_id'], 'class' => 'edition-selector', 'data' => array('conf' => $edition['configlet_file'])));
     else if ($edition['beta'])
         $footer = "<div class='theme-text-alert'>" . lang('edition_not_available_during_testing') . "</div>";
