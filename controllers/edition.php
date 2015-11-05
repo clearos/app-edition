@@ -80,6 +80,7 @@ class Edition extends ClearOS_Controller
 
             $data['selected'] = json_encode($selected);
             $data['editions'] = $this->edition->get_editions();
+            // FIXME -- be more selective about which editions.  Show all for now.
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;
@@ -128,7 +129,39 @@ class Edition extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('edition/selected', $data, lang('edition_currently_running'));
+        $this->page->view_form('edition/selected', $data, lang('edition_app_name'));
+    }
+
+    /**
+     * Do reset edition.
+     *
+     * @return view
+     */
+
+    function do_reset()
+    {
+        $this->load->library('edition/Edition');
+
+        $this->edition->reset();
+
+        redirect('/edition');
+    }
+
+    /**
+     * Reset edition.
+     *
+     * @return view
+     */
+
+    function reset()
+    {
+        $this->lang->load('edition');
+
+        $confirm_uri = '/app/edition/do_reset';
+        $cancel_uri = '/app/edition';
+        $items = array($username);
+
+        $this->page->view_confirm(lang('edition_confirm_edition_change'), $confirm_uri, $cancel_uri, $items);
     }
 
     /**

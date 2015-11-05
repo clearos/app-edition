@@ -41,7 +41,7 @@ foreach ($editions as $id => $edition) {
         row_close()
     );
     if ($edition['available'])
-        $footer = "<div class='edition-label theme-hidden'>" . lang('base_select') . ' ' . $edition['short_name'] . "</div>" . 
+        $footer = "<div class='edition-label theme-hidden'>" . lang('base_select') . ' ' . $edition['short_name'] . "</div>" .
             anchor_select('#', 'high', array('id' => $edition['dom_id'], 'class' => 'edition-selector', 'data' => array('conf' => $edition['configlet_file'])));
     else if ($edition['beta'])
         $footer = "<div class='theme-text-alert'>" . lang('edition_not_available_during_testing') . "</div>";
@@ -56,4 +56,20 @@ echo row_close();
 echo $summaries;
 if ($selected !== FALSE)
     echo "<div id='edition-selected' class='theme-hidden'>" . $selected . "</div>";
-echo modal_info("wizard_next_showstopper", lang('base_error'), lang('edition_no_edition_selected'), array('type' => 'warning'));
+
+echo modal_info(
+    "wizard_next_showstopper",
+    lang('base_error'),
+    lang('edition_no_edition_selected'),
+    array('type' => 'warning')
+);
+
+echo modal_info(
+    "change_edition_reregister",
+    lang('edition_system_registration'),
+    lang('edition_proceed_to_registration'),
+    array(
+        'type' => 'info',
+        'redirect_on_close' => '/app/registration/reset'
+    )
+);

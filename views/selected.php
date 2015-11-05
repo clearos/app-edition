@@ -22,6 +22,7 @@ $this->lang->load('edition');
 // Content
 ///////////////////////////////////////////////////////////////////////////////
 
+
 echo box_open($selected['name'] . ' ' . lang('edition_edition') . ' ' . $selected['base_version']);
 echo box_content(
     row_open() .
@@ -29,9 +30,16 @@ echo box_content(
     image($selected['logo']) .
     column_close() .
     column_open(9) .
-    lang('edition_exec_summary_' . $selected['class']) .
+    lang('edition_exec_summary_' . $selected['class']) . ' ' .
+    column_close() .
+    row_close() .
+
+    row_open() .
+    column_open(3, NULL, NULL, array('class' => 'theme-center-text')) .
+    column_close() .
+    column_open(9) .
+    anchor_custom('/app/edition/reset', lang('edition_upgrade_edition'), 'low') .
     column_close() .
     row_close()
 );
-echo box_footer('footer-selected', lang('edition_currently_running') . ': ' . $selected['name'], array('class' => 'edition-option-footer'));
 echo box_close();

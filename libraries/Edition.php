@@ -93,6 +93,22 @@ class Edition extends Product
     }
 
     /**
+     * Resets the Edition.
+     *
+     * @return void
+     * @throws Engine_Exception
+     */
+
+    public function reset()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_CONFIG);
+        if ($file->exists())
+            $file->delete();
+    }
+
+    /**
      * Sets the Edition.
      * 
      * @param string $conf Configlet filename of the selected edition

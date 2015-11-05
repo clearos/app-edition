@@ -129,6 +129,8 @@ function update_edition(edition) {
                 clearos_dialog_box('error', lang_warning, data.errmsg);
             $("#theme-os-css").attr("href", data.css_url);
             $("#theme-clearos-os-name").html(data.short_name);
+            if ($('#wizard_nav_next').length == 0)
+                clearos_modal_infobox_open('change_edition_reregister');
         },
         error: function(xhr, text, err) {
             clearos_dialog_box('error', lang_warning, xhr.responseText.toString());

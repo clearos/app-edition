@@ -19,3 +19,7 @@ $lang['edition_summary_home'] = 'ClearOS Home Edition is ideal for home environm
 $lang['edition_thank_you'] = 'Thank You for Choosing ClearOS';
 $lang['edition_upgrade'] = 'Upgrade';
 $lang['edition_updating'] = 'Software Update in Progress';
+$lang['edition_upgrade_edition'] = 'Upgrade Edition';
+$lang['edition_confirm_edition_change'] = 'Are you sure you want to select a different ClearOS edition?  Please make sure you have a valid subscription available to re-register the system.  If you are unsure, please contact technical support.';
+$lang['edition_proceed_to_registration'] = 'You will now be redirected to system registration to re-provision your system.';
+$lang['edition_system_registration'] = 'System Registration';
