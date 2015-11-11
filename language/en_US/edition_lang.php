@@ -3,6 +3,7 @@
 $lang['edition_abort_update'] = 'Abort Update';
 $lang['edition_app_description'] = 'The Edition Manager provides a selection process to choose the right version for your environment and budget.';
 $lang['edition_app_name'] = 'Edition Manager';
+$lang['edition_no_reset'] = 'This edition cannot be reset...please contact the support team for assistance.';
 $lang['edition_currently_running'] = 'Current software version';
 $lang['edition_downgrade'] = 'Downgrade';
 $lang['edition_edition'] = 'Edition';

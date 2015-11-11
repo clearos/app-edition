@@ -1,3 +1,6 @@
 .edition-info-box {
   min-height: 225px;
 }
+.edition-info-box div.box-body {
+  min-height: 80px;
+}

@@ -30,16 +30,10 @@ echo box_content(
     image($selected['logo']) .
     column_close() .
     column_open(9) .
-    lang('edition_exec_summary_' . $selected['class']) . ' ' .
-    column_close() .
-    row_close() .
-
-    row_open() .
-    column_open(3, NULL, NULL, array('class' => 'theme-center-text')) .
-    column_close() .
-    column_open(9) .
-    anchor_custom('/app/edition/reset', lang('edition_upgrade_edition'), 'low') .
+    lang('edition_exec_summary_' . $selected['class']) .
     column_close() .
     row_close()
 );
+if ($display_reset)
+    echo box_footer('edition_select', anchor_custom('/app/edition/reset', lang('edition_upgrade_edition'), 'low'), array('class' => 'theme-center-text'));
 echo box_close();

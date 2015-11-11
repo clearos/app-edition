@@ -95,10 +95,11 @@ class Edition extends ClearOS_Controller
     /**
      * Edition display controller.
      *
+     * @param boolean $display_reset Show reset option
      * @return view
      */
 
-    function display()
+    function display($display_reset = FALSE)
     {
         $this->lang->load('edition');
         $this->load->library('edition/Edition');
@@ -114,6 +115,11 @@ class Edition extends ClearOS_Controller
             redirect('/edition');
             return;
         }
+        // Only display upgrade unregistered or Community Systems
+        if (!$this->edition->is_registered())
+            $display_reset = TRUE;
+        else if (preg_match('/community/', $selected['class']) && $display_reset !== FALSE)
+            $display_reset = TRUE;
 
         // Load view data
         //---------------
@@ -121,6 +127,7 @@ class Edition extends ClearOS_Controller
         try {
             $data['selected'] = $selected;
             $data['editions'] = $this->edition->get_editions();
+            $data['display_reset'] = $display_reset;
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;
@@ -150,12 +157,29 @@ class Edition extends ClearOS_Controller
     /**
      * Reset edition.
      *
+     * @param String $force String to allow reset
+     *
      * @return view
      */
 
-    function reset()
+    function reset($force = FALSE)
     {
         $this->lang->load('edition');
+        $this->load->library('edition/Edition');
+
+        $selected = $this->edition->get();
+
+        if (!$this->edition->is_registered()) {
+            // Allow un-registered systems to set edition
+        } else if (preg_match('/community/', $selected['class'])) {
+            // Allow reset on Community Editions
+        } else if (!preg_match('/community/', $selected['class']) && $display_reset == 'edition_reset') {
+            // Allow reset with specific key
+        } else {
+            $this->page->set_message(lang('edition_no_reset'), 'warning');
+            redirect('/edition/display');
+            return;
+        }
 
         $confirm_uri = '/app/edition/do_reset';
         $cancel_uri = '/app/edition';

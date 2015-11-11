@@ -109,6 +109,24 @@ class Edition extends Product
     }
 
     /**
+     * Check to see if system is registered.
+     * 
+     * @return boolean true if registered
+     */
+
+    public function is_registered()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        try {
+            $registration = new Registration();
+            return $registration->get_local_registration_status();
+        } catch (Exception $e) {
+            return FALSE;
+        }
+    }
+
+    /**
      * Sets the Edition.
      * 
      * @param string $conf Configlet filename of the selected edition
