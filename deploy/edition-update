@@ -1,0 +1,144 @@
+#!/usr/clearos/sandbox/usr/bin/php
+<?php
+
+/**
+ * ClearOS Release Upgrade.
+ *
+ * @category   apps
+ * @package    edition
+ * @subpackage scripts
+ * @author     ClearFoundation <developer@clearfoundation.com>
+ * @copyright  2015 ClearFoundation
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
+ * @link       http://www.clearfoundation.com/docs/developer/apps/edition/
+ */
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// B O O T S T R A P
+///////////////////////////////////////////////////////////////////////////////
+
+$bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/clearos/framework/shared';
+require_once $bootstrap . '/bootstrap.php';
+
+///////////////////////////////////////////////////////////////////////////////
+// T R A N S L A T I O N S
+///////////////////////////////////////////////////////////////////////////////
+
+clearos_load_language('base');
+clearos_load_language('edition');
+
+///////////////////////////////////////////////////////////////////////////////
+// D E P E N D E N C I E S
+///////////////////////////////////////////////////////////////////////////////
+
+// Classes
+//--------
+
+use \clearos\apps\base\Shell as Shell;
+use \clearos\apps\edition\Edition as Edition;
+
+clearos_load_library('base/Shell');
+clearos_load_library('edition/Edition');
+
+// Exceptions
+//-----------
+
+use \Exception as Exception;
+
+///////////////////////////////////////////////////////////////////////////////
+// M A I N
+///////////////////////////////////////////////////////////////////////////////
+
+//--------------------------------------------------------------------
+// Command line options
+//--------------------------------------------------------------------
+
+$short_options  = '';
+
+// Common
+$short_options .= 'u::'; // Run upgrade
+$short_options .= 'h';   // Help
+
+$helpopts  = '
+  Options
+  -------
+  -u: run upgrade maintenance
+  -h: help
+';
+
+// Handle command line options
+//----------------------------
+
+$options = getopt($short_options);
+
+$help = isset($options['h']) ? TRUE : FALSE;
+
+if ($help) {
+    echo "usage: " . $argv[0] . " [options]\n";
+    echo $helpopts;
+    exit(0);
+}
+
+if (isset($options['u'])) {
+    upgrade();
+} else {
+    echo "usage: " . $argv[0] . " [options]\n";
+    echo $helpopts;
+    exit(0);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// F U N C T I O N S
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Import.
+ *
+ * @return void
+ */
+
+function upgrade()
+{
+    try {
+        $edition = new Edition();
+        $my_edition = $edition->get();
+        if ($my_edition === FALSE) {
+            echo "Edition has not been set...exiting.\n";
+            return;
+        }
+        $editions = $edition->get_editions();
+        foreach ($editions as $priority => $info) {
+            if ($info['class'] == $my_edition['class'] && $info['software_id'] != $edition->get_software_id()) {
+                echo "Updating /etc/product\n";
+                $edition->set($info['configlet_file'], TRUE);
+                clearos_log("app-edition", $info['name'] . " minor release upgrade (" . $edition->get_software_id() . " to " . $info['software_id'] . ")");
+                $shell = new Shell();
+                $shell->execute('/usr/sbin/clearcenter-checkin', '-u');
+                break;
+            }
+        }
+        echo "Update complete.\n";
+    } catch (Exception $e) {
+        echo clearos_exception_message($e) . "\n";
+    }
+}
+
+// vim: syntax=php

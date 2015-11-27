@@ -129,13 +129,14 @@ class Edition extends Product
     /**
      * Sets the Edition.
      * 
-     * @param string $conf Configlet filename of the selected edition
+     * @param string  $conf Configlet filename of the selected edition
+     * @param boolean $minor_upgrade  there are times (and API calls) when minor upgrade need to set this file...do not unregister system
      *
      * @return integer exit code
      * @throws Validation_Exception
      */
 
-    public function set($conf)
+    public function set($conf, $minor_upgrade = FALSE)
     {
         clearos_profile(__METHOD__, __LINE__);
 
@@ -149,6 +150,10 @@ class Edition extends Product
                     break;
                 }
             }
+
+            if ($minor_upgrade)
+                return;
+
             // If system is registered, change up hostkey to reset registration process.
             $registration = new Registration();
             if ($registration->get_local_registration_status())

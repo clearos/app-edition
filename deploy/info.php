@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'edition';
-$app['version'] = '2.1.27';
+$app['version'] = '2.1.28';
 $app['release'] = '1';
 $app['vendor'] = 'ClearCenter';
 $app['packager'] = 'ClearCenter';
@@ -30,19 +30,20 @@ $app['core_directory_manifest'] = array(
 );
 
 $app['core_file_manifest'] = array( 
-    'business-7.1.conf' => array ( 
+    'business-7.conf' => array (
         'target' => '/etc/clearos/edition.d',
         'mode' => '0644',
     ),
-    'community-7.1.conf' => array ( 
+    'community-7.conf' => array (
         'target' => '/etc/clearos/edition.d',
         'mode' => '0644',
     ),
-    'home-7.1.conf' => array ( 
+    'home-7.conf' => array (
         'target' => '/etc/clearos/edition.d',
         'mode' => '0644',
     ),
 );
 $app['core_requires'] = array(
     'app-clearcenter-core',
+    'clearos-release >= 7-2.1'
 );
