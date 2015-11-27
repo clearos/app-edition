@@ -131,7 +131,7 @@ function upgrade()
                 $edition->set($info['configlet_file'], TRUE);
                 clearos_log("app-edition", $info['name'] . " minor release upgrade (" . $edition->get_software_id() . " to " . $info['software_id'] . ")");
                 $shell = new Shell();
-                $shell->execute('/usr/sbin/clearcenter-checkin', '-u');
+                $shell->execute('/usr/sbin/clearcenter-checkin', NULL);
                 break;
             }
         }

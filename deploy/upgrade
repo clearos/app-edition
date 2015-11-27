@@ -13,6 +13,6 @@ if [ -e /etc/clearos/edition/community-7.1.conf ]; then
     rm -rf /etc/clearos/edition/community-7.1.conf
 fi
 
-/usr/clearos/apps/edition/deploy/edition-update
+/usr/clearos/apps/edition/deploy/edition-update -u
 
 # vi: expandtab shiftwidth=4 softtabstop=4 tabstop=4
