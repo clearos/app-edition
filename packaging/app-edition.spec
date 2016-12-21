@@ -1,7 +1,7 @@
 
 Name: app-edition
 Epoch: 1
-Version: 2.3.1
+Version: 2.3.3
 Release: 1%{dist}
 Summary: Edition Manager
 License: Proprietary
