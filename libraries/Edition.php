@@ -130,7 +130,7 @@ class Edition extends Product
      * Sets the Edition.
      * 
      * @param string  $conf Configlet filename of the selected edition
-     * @param boolean $minor_upgrade  there are times (and API calls) when minor upgrade need to set this file...do not unregister system
+     * @param boolean $minor_upgrade  there are times (and API calls) when minor upgrade need to set this file... do not unregister system
      *
      * @return integer exit code
      * @throws Validation_Exception

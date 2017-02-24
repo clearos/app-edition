@@ -121,7 +121,7 @@ function upgrade()
         $edition = new Edition();
         $my_edition = $edition->get();
         if ($my_edition === FALSE) {
-            echo "Edition has not been set...exiting.\n";
+            echo "Edition has not been set... exiting.\n";
             return;
         }
         $editions = $edition->get_editions();
