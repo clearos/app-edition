@@ -1,7 +1,7 @@
 
 Name: app-edition
 Epoch: 1
-Version: 2.3.4
+Version: 2.3.20
 Release: 1%{dist}
 Summary: Edition Manager
 License: Proprietary
@@ -76,6 +76,7 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/edition/packaging
+%exclude /usr/clearos/apps/edition/unify.json
 %dir /usr/clearos/apps/edition
 %dir /etc/clearos/edition.d
 /usr/clearos/apps/edition/deploy
