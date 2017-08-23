@@ -173,7 +173,7 @@ class Edition extends ClearOS_Controller
             // Allow un-registered systems to set edition
         } else if (preg_match('/community/', $selected['class'])) {
             // Allow reset on Community Editions
-        } else if (!preg_match('/community/', $selected['class']) && $display_reset == 'edition_reset') {
+        } else if (!preg_match('/community/', $selected['class']) && $force == 'edition_reset') {
             // Allow reset with specific key
         } else {
             $this->page->set_message(lang('edition_no_reset'), 'warning');
