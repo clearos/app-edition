@@ -1,7 +1,7 @@
 
 Name: app-edition
 Epoch: 1
-Version: 2.3.23
+Version: 2.4.0
 Release: 1%{dist}
 Summary: Edition Manager
 License: Proprietary
@@ -20,7 +20,8 @@ License: Proprietary
 Group: ClearOS/Libraries
 Requires: app-base-core
 Requires: app-clearcenter-core
-Requires: clearos-release >= 7-2.1
+Requires: app-base-core >= 1:2.4.0
+Requires: clearos-release >= 7-4.1
 
 %description core
 The Edition Manager provides a selection process to choose the right version for your environment and budget.

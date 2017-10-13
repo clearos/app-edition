@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'edition';
-$app['version'] = '2.3.23';
+$app['version'] = '2.4.0';
 $app['release'] = '1';
 $app['vendor'] = 'ClearCenter';
 $app['packager'] = 'ClearCenter';
@@ -45,5 +45,6 @@ $app['core_file_manifest'] = array(
 );
 $app['core_requires'] = array(
     'app-clearcenter-core',
-    'clearos-release >= 7-2.1'
+    'app-base-core >= 1:2.4.0',
+    'clearos-release >= 7-4.1'
 );
