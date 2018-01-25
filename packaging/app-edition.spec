@@ -1,7 +1,7 @@
 
 Name: app-edition
 Epoch: 1
-Version: 2.4.0
+Version: 2.4.1
 Release: 1%{dist}
 Summary: Edition Manager
 License: Proprietary
@@ -22,6 +22,10 @@ Requires: app-base-core
 Requires: app-clearcenter-core
 Requires: app-base-core >= 1:2.4.0
 Requires: clearos-release >= 7-4.1
+Requires: syswatch
+Requires: webconfig-php-gd
+Requires: webconfig-php-ldap
+Requires: webconfig-php-mysql
 
 %description core
 The Edition Manager provides a selection process to choose the right version for your environment and budget.

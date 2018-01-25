@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'edition';
-$app['version'] = '2.4.0';
+$app['version'] = '2.4.1';
 $app['release'] = '1';
 $app['vendor'] = 'ClearCenter';
 $app['packager'] = 'ClearCenter';
@@ -43,8 +43,19 @@ $app['core_file_manifest'] = array(
         'mode' => '0644',
     ),
 );
+
+// KLUDGE: The following dependencies should be moved to a new app at some
+// point (e.g. app-clearos). For now, these are here to make sure the packages
+// are installed on ClearOS, but not a barebones ClearVM system.
+// - syswatch
+// - webconfig-php-* (to avoid webconfig restarts)
+
 $app['core_requires'] = array(
     'app-clearcenter-core',
     'app-base-core >= 1:2.4.0',
-    'clearos-release >= 7-4.1'
+    'clearos-release >= 7-4.1',
+    'syswatch',
+    'webconfig-php-gd',
+    'webconfig-php-ldap',
+    'webconfig-php-mysql'
 );
